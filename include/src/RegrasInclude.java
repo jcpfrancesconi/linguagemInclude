@@ -1,7 +1,6 @@
 import gramatica.*;
 import model.Variavel;
 import model.excecoes.ExcecaoSemantica;
-import org.antlr.v4.runtime.RecognitionException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +63,7 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
         if(!this.funcoes.containsKey(nome)){
             throw new ExcecaoSemantica("Função inexistente.");
         }else{
-            RegrasInclude funcao = (RegrasInclude) funcoes.get(nome);
+            RegrasInclude funcao = funcoes.get(nome);
             ArrayList<Variavel> parametros = (ArrayList<Variavel>) visit(ctx.listaExpressao());
             if(parametros.size()!= funcao.memoria.size()){
                 throw new ExcecaoSemantica("Numero errado de valores passados como parametros.");
@@ -135,10 +134,8 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
             if(expressao.valorIgual(primaria)){
                 visit(ctx.sentencaCaso(i).getChild(3));
                 achou = true;
-                int b = 1+1;
             }
             i++;
-            int a = 1+1;
         }
         if((achou==false) &&(ctx.sentencaPadrao()!=null)){visit(ctx.sentencaPadrao());}
         return 1;
@@ -215,7 +212,6 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
 
     //expressoes
     public Variavel visitRPrimariaIdentificador(gIncludeParser.RPrimariaIdentificadorContext ctx){
-        int a = 1+1;
         return (Variavel) visit(ctx.identificador());
     }
     public Variavel visitRPrimariaConstante(gIncludeParser.RPrimariaConstanteContext ctx){
@@ -240,7 +236,7 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
         String nomeLista = lista.getNome();
         if(!this.memoria.containsKey(nomeLista)){
             throw new ExcecaoSemantica("Lista não existente.");
-        };
+        }
 
         int indice = (int)((Double)((Variavel) visit(ctx.expressao())).getValor()).doubleValue();
         ArrayList<Variavel> listaRetornada = (ArrayList<Variavel>) memoria.get(nomeLista).getValor();
@@ -254,7 +250,7 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
         if(!this.memoria.containsKey(nome)){
             throw new ExcecaoSemantica("Variavel " + nome + " não declarada");
         }
-        Variavel acessada = (Variavel) this.memoria.get(nome);
+        Variavel acessada = this.memoria.get(nome);
         if(incrementada.getTipo().equals("numero")){
             acessada.setValor((Double)acessada.getValor() + 1);
         }
@@ -267,14 +263,13 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
         if(!this.memoria.containsKey(nome)){
             throw new ExcecaoSemantica("Variavel " + nome + " não declarada");
         }
-        Variavel acessada = (Variavel) this.memoria.get(nome);
+        Variavel acessada = this.memoria.get(nome);
         if(incrementada.getTipo().equals("numero")){
             acessada.setValor((Double)acessada.getValor() - 1);
         }
         return this.memoria.get(nome);
     }
 
-    //dar uma olhada melhor nessas 2 de lista
     @Override
     public Variavel visitRListaExpressaoUnica (gIncludeParser.RListaExpressaoUnicaContext ctx){
         Variavel m = (Variavel) visit(ctx.expressao());
@@ -283,7 +278,7 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
 
     @Override
     public ArrayList<Variavel> visitRListaExpressaoLista (gIncludeParser.RListaExpressaoListaContext ctx){
-        ArrayList lista = new ArrayList();
+        ArrayList<Variavel> lista = new ArrayList<>();
         Variavel n = (Variavel) visit(ctx.expressao());
         lista.add(n);
         //if(ctx.getChild(0))
@@ -403,7 +398,7 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
         Variavel valor2 = (Variavel) visit(ctx.getChild(2));
         Integer a = (int) ((Double)valor1.getValor()).doubleValue();
         Integer b = (int) ((Double)valor2.getValor()).doubleValue();
-        if(a==b){retornado = true;}
+        if(a.equals(b)){retornado = true;}
         else {retornado = false;}
 
         Variavel nova = new Variavel("veracidade", retornado);
@@ -419,7 +414,7 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
         Variavel valor2 = (Variavel) visit(ctx.getChild(2));
         Integer a = (int) ((Double)valor1.getValor()).doubleValue();
         Integer b = (int) ((Double)valor2.getValor()).doubleValue();
-        if(a!=b){retornado = true;}
+        if(!a.equals(b)){retornado = true;}
         else {retornado = false;}
 
         Variavel nova = new Variavel("veracidade", retornado);
@@ -553,10 +548,8 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
             throw new ExcecaoSemantica("Variavel " + nome + " não declarada");
         }
         String tipo;
-        int b = 1 + 1;
 
         Variavel expressao = (Variavel) visit(ctx.getChild(2));
-        int a = 1 + 1;
         if(memoria.containsKey(nome)) {
             tipo = memoria.get(nome).getTipo();
             if (expressao.getTipo().equals(tipo)) {
@@ -642,7 +635,7 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
 
         int indice = (int)((Double)((Variavel) visit(ctx.expressaoLogica())).getValor()).doubleValue();
         Variavel acessada = memoria.get(nome);
-        ArrayList<Object> lista = (ArrayList) acessada.getValor();
+        ArrayList<Object> lista = (ArrayList<Object>) acessada.getValor();
         Variavel expressao = (Variavel) visit(ctx.expressaoLogica());
         String tipo = memoria.get(nome).getTipo();
         if (tipo.contains(expressao.getTipo())) {
@@ -732,8 +725,6 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
 
     public Variavel visitRExpressaoDeclaracaoListaAtribuicao(gIncludeParser.RExpressaoDeclaracaoListaAtribuicaoContext ctx) throws ExcecaoSemantica {
         String tipo = ctx.prefixoLista().getText() + ctx.rTipo().getText();
-        Variavel identificador = (Variavel) visit(ctx.expressaoAtribuicaoLista().getChild(0));
-        String nome = identificador.getNome();
         Variavel nova = (Variavel) visit(ctx.expressaoAtribuicaoLista());
 
         if(nova.getTipo().equals(tipo)){

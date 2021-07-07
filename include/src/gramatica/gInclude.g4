@@ -38,8 +38,6 @@ sentencaSelecao: 'se' '(' expressaoLogica ')'  'entao' sentencaComposta  #rSente
 		| 'se' '(' expressaoLogica ')' 'entao' sentencaComposta ('senao se' '(' expressaoLogica ')' sentencaComposta)+ 'senao' sentencaComposta  #rSentencaSelecaoSenaoSe  //feito
 		| 'checar' '(' expressaoAditiva ')' '{' (sentencaCaso)+ sentencaPadrao? '}'  #rSentencaSelecaoChecarCaso  //feito
 		| 'checar' '(' expressaoAditiva ')' '{' sentencaPadrao '}'  #rSentencaSelecaoChecarPadrao  //feito
-		//| sentencaCaso #rSentencaCaso
-		//| sentencaPadrao #rSentencaPadrao
 		;
 	//senteças de iteração
 sentencaIteracao: 'enquanto' '(' expressaoLogica ')' sentencaComposta #rIteracaoEnquanto
@@ -49,8 +47,6 @@ sentencaIteracao: 'enquanto' '(' expressaoLogica ')' sentencaComposta #rIteracao
 	//declaração de função
 
 declaracaoFuncao: 'funcao ' identificador ' recebe' '(' (((rTipo identificador (',' rTipo identificador)*)?) | tipoNada) ')' 'retorna ' (rTipo | tipoNada) sentencaComposta #rDeclaraFuncao
-//		| 'funcao ' identificador ' recebe' '(' tipoNada? ')' 'retorna ' (rTipo | tipoNada)
-//sentencaComposta #rDeclaraFuncaoNada
        		 ;
 
 expressaoSentenca: expressaoPrimaria ';' 	#rExpressaoSentencaPrimaria
@@ -76,7 +72,7 @@ expressaoPrimaria: identificador			#rPrimariaIdentificador
 
 //expressões posfixas
 expressaoPosfixa: expressaoPrimaria		#rPosfixaPrimaria
-| expressaoLista			#rPosfixaLista
+        | expressaoLista			#rPosfixaLista
 		| expressaoFuncao			#rPosfixaFuncao
 		| expressaoIncremento		#rPosfixaIncremento
 ;
