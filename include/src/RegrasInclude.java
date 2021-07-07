@@ -281,7 +281,6 @@ public class RegrasInclude extends gIncludeBaseVisitor<Object>{
         ArrayList<Variavel> lista = new ArrayList<>();
         Variavel n = (Variavel) visit(ctx.expressao());
         lista.add(n);
-        //if(ctx.getChild(0))
         ArrayList<Variavel> m = (ArrayList<Variavel>) visit(ctx.listaExpressao());
         lista.addAll(m);
         return lista;
