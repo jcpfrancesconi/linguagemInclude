@@ -1,0 +1,60 @@
+//Testes
+
+//Declarações
+
+numero teste = 1; mostrar(teste);
+texto teste = "palavra"; mostrar(teste);
+veracidade teste = verdadeiro; mostrar(teste);
+
+lista de numero teste = [1,5,4];mostrar(teste);
+lista de numero teste; teste = [1,5,4];mostrar(teste);
+lista de numero teste = [1,5,4];mostrar(teste[0]);
+lista de numero teste = [1,5,4];mostrar(teste[1]);
+lista de numero teste = [1,5,4];mostrar(teste[2]);
+
+//Sentenças de seleção
+numero teste = 10; se (teste==10) entao {mostrar("entao");}
+numero teste = 3; se (teste<5) entao{mostrar("entao");}senao{mostrar("senao");}
+numero teste = 10; se (teste<5) entao{mostrar("entao");}senao{mostrar("senao");}
+
+numero teste = 3; se (teste<5) entao{mostrar("entao");}senao se(teste==5){mostrar("senao se");}senao{mostrar("senao");}
+numero teste = 5; se (teste<5) entao{mostrar("entao");}senao se(teste==5){mostrar("senao se");}senao{mostrar("senao");}
+numero teste = 10; se (teste<5) entao{mostrar("entao");}senao se(teste==5){mostrar("senao se");}senao{mostrar("senao");}
+
+numero teste = 1; checar (teste){caso 1: mostrar("caso1"); padrao: mostrar("padrao");}
+numero teste = 5; checar (teste){caso 1: mostrar("caso1"); padrao: mostrar("padrao");}
+
+numero teste = 1; checar (teste){caso 1: mostrar("caso1"); caso 2: mostrar("caso2"); padrao: mostrar("padrao");}
+numero teste = 2; checar (teste){caso 1: mostrar("caso1"); caso 2: mostrar("caso2"); padrao: mostrar("padrao");}
+numero teste = 3; checar (teste){caso 1: mostrar("caso1"); caso 2: mostrar("caso2"); padrao: mostrar("padrao");}
+
+//Sentenças de iteração
+
+numero teste = 1; enquanto (teste<4) {mostrar(teste);teste=teste+1;}
+
+numero teste = 1; repita{mostrar(teste);teste=teste+1;}ate que(teste==4);
+numero teste = 1; repita{teste=teste+1;mostrar(teste);}ate que(teste==4);
+
+para k de  0 ate 3, passo 1{mostrar(k);}
+numero teste = 0; para k de  0 ate 3, passo 1{mostrar(teste);teste = teste + 1;}
+numero teste = 0; para k de  -2 ate -10, passo -2{mostrar(teste);teste = teste + 1;}
+
+
+//Expressoes aritmeticas
+numero a = 10; numero b = 2; mostrar(a+b);
+numero a = 10; numero b = 2; mostrar(a-b);
+numero a = 10; numero b = 2; mostrar(a*b);
+numero a = 10; numero b = 2; mostrar(a/b);
+numero a = 10; numero b = 2; mostrar(a//b);
+numero a = 10; numero b = 2; mostrar(a%b);
+
+//Expressoes relacionais
+numero a = 10; numero b = 2; mostrar(a>b);
+numero a = 10; numero b = 2; mostrar(a<b);
+numero a = 2; numero b = 2; mostrar(a>=b);
+numero a = 2; numero b = 2; mostrar(a<=b);
+numero a = 2; numero b = 2; mostrar(a==b);
+numero a = 2; numero b = 2; mostrar(a!=b);
+
+//funcao soma recebe (numero n1, numero n2) retorna numero;
+//(1,2);
